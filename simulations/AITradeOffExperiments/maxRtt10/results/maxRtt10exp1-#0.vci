@@ -1,0 +1,322 @@
+                                                                
+version 3
+run maxRtt10exp1-0-20230629-00:00:00-52333
+attr configname maxRtt10exp1
+attr datetime 20230629-00:00:00
+attr datetimef 20230629-000000
+attr experiment maxRtt10exp1
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network simplenetwork
+attr processid 52333
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../../../inet4.4/images
+config extends General
+config **.tcp.additiveIncreasePercent 0.01
+config network simplenetwork
+config sim-time-limit 10s
+config record-eventlog false
+config cmdenv-express-mode true
+config cmdenv-redirect-output false
+config cmdenv-output-file dctcpLog.txt
+config **.client*.tcp.conn-8.cmdenv-log-level detail
+config cmdenv-log-prefix "%t | %m |"
+config cmdenv-event-banners false
+config **.cmdenv-log-level off
+config **.**.tcp.conn-*.cwnd:vector.vector-recording true
+config **.**.tcp.conn-*.u:vector.vector-recording true
+config **.**.tcp.conn-*.U:vector.vector-recording true
+config **.**.tcp.conn-*.additiveIncrease:vector.vector-recording true
+config **.**.tcp.conn-*.sharingFlows:vector.vector-recording true
+config **.**.tcp.conn-*.tau:vector.vector-recording true
+config **.**.tcp.conn-*.txRate:vector.vector-recording true
+config **.**.tcp.conn-*.rtt:vector.vector-recording true
+config **.**.tcp.conn-*.lossRecovery:vector.vector-recording true
+config **.**.tcp.conn-*.srtt:vector.vector-recording true
+config **.**.queue.queueLength:vector.vector-recording true
+config **.**.queue.queueingTime:vector.vector-recording true
+config **.**.queue.avgRtt:vector.vector-recording true
+config **.server*.app[*].**:vector.vector-recording true
+config **.scalar-recording false
+config **.vector-recording false
+config **.bin-recording false
+config **.server*.app[*].*.thrMeasurementInterval 0.3s
+config **.server*.app[*].*.thrMeasurementBandwidth 125000000
+config **.tcp.typename Hpcc
+config **.tcp.tcpAlgorithmClass "\"HpccFlavour\""
+config **.tcp.advertisedWindow 200000000
+config **.tcp.windowScalingSupport true
+config **.tcp.windowScalingFactor -1
+config **.tcp.increasedIWEnabled true
+config **.tcp.delayedAcksEnabled false
+config **.tcp.ecnWillingness false
+config **.tcp.nagleEnabled true
+config **.tcp.stopOperationTimeout 4000s
+config **.tcp.mss 1460
+config **.tcp.sackSupport true
+config **.client1.tcp.bandwidth 125000000
+config **.client1.tcp.basePropagationRTT 0.005s
+config **.client2.tcp.bandwidth 125000000
+config **.client2.tcp.basePropagationRTT 0.010s
+config **.tcp.initialSsthresh 0
+config **.client*.numApps 1
+config **.client*.app[*].typename HpccSessionApp
+config **.client1.app[0].connectAddress "\"server1\""
+config *.client1.app[0].sendBytes 2Gb
+config *.client1.app[0].connectAddress "\"server1\""
+config *.client2.app[0].connectAddress "\"server2\""
+config *.client1.app[0].tOpen 0s
+config *.client2.app[0].tOpen 0.1s
+config *.client1.app[0].tSend 0s
+config *.client2.app[0].tSend 0.1s
+config *.client1.app[0].tClose -1s
+config *.client*.app[0].sendBytes 2GB
+config *.client*.app[0].dataTransferMode "\"bytecount\""
+config *.client*.app[0].statistic-recording true
+config **.server*.numApps 1
+config **.server*.app[*].typename TcpSinkApp
+config **.server*.app[*].serverThreadModuleType "\"hpcc.applications.tcpapp.TcpThroughputSinkAppThread\""
+config **.ppp[*].queue.typename IntQueue
+config **.ppp[*].queue.packetCapacity 860
+
+vector 0 simplenetwork.client1.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 1 simplenetwork.client1.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 2 simplenetwork.router1.ppp[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 3 simplenetwork.router1.ppp[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 4 simplenetwork.router2.ppp[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 5 simplenetwork.router2.ppp[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 6 simplenetwork.server1.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 7 simplenetwork.server1.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 8 simplenetwork.router2.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 9 simplenetwork.router2.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 10 simplenetwork.router1.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 11 simplenetwork.router1.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 12 simplenetwork.server1.app[0].thread_15 endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 13 simplenetwork.server1.app[0] endToEndDelay:vector ETV
+attr checkSignals false
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 14 simplenetwork.client1.tcp.conn-14 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 15 simplenetwork.client1.tcp.conn-14 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 16 simplenetwork.client1.tcp.conn-14 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 17 simplenetwork.client1.ppp[0].queue avgRtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 18 simplenetwork.router1.ppp[2].queue avgRtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 19 simplenetwork.router2.ppp[1].queue avgRtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 20 simplenetwork.client1.tcp.conn-14 txRate:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 21 simplenetwork.client1.tcp.conn-14 u:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 22 simplenetwork.client1.tcp.conn-14 tau:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 23 simplenetwork.client1.tcp.conn-14 sharingFlows:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 24 simplenetwork.client1.tcp.conn-14 U:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 25 simplenetwork.client1.tcp.conn-14 additiveIncrease:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 26 simplenetwork.client2.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 27 simplenetwork.client2.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 28 simplenetwork.router2.ppp[2].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 29 simplenetwork.router2.ppp[2].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 30 simplenetwork.server2.ppp[0].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 31 simplenetwork.server2.ppp[0].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 32 simplenetwork.router1.ppp[1].queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 33 simplenetwork.router1.ppp[1].queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 34 simplenetwork.server2.app[0].thread_17 endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 35 simplenetwork.server2.app[0] endToEndDelay:vector ETV
+attr checkSignals false
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 36 simplenetwork.client2.tcp.conn-16 rtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 37 simplenetwork.client2.tcp.conn-16 srtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 38 simplenetwork.client2.tcp.conn-16 cwnd:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 39 simplenetwork.client2.ppp[0].queue avgRtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 40 simplenetwork.router2.ppp[2].queue avgRtt:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 41 simplenetwork.client2.tcp.conn-16 txRate:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 42 simplenetwork.client2.tcp.conn-16 u:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 43 simplenetwork.client2.tcp.conn-16 tau:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 44 simplenetwork.client2.tcp.conn-16 sharingFlows:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 45 simplenetwork.client2.tcp.conn-16 U:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 46 simplenetwork.client2.tcp.conn-16 additiveIncrease:vector ETV
+attr interpolationmode sample-hold
+attr recordingmode vector
+vector 47 simplenetwork.server1.app[0].thread_15 ReceiverSideThroughput:vector ETV
+attr recordingmode vector
+attr source ReceiverSideThroughput
+attr unit bps
+vector 48 simplenetwork.server2.app[0].thread_17 ReceiverSideThroughput:vector ETV
+attr recordingmode vector
+attr source ReceiverSideThroughput
+attr unit bps
+3	12916 847961 11 644991 0.0060000472 0.613955064142 32768 0 25 88293 831939

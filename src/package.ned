@@ -1,0 +1,3 @@
+package infocomexperiments;
+
+@license(LGPL);
